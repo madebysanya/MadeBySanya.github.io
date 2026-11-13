@@ -83,6 +83,7 @@ section { display: grid; gap: 24px; }
 .card:hover { transform: translateY(-3px); border-color: var(--accent); }
 .thumb { aspect-ratio: 16 / 9; max-width: 100%; display: grid; place-items: center; color: var(--ink); }
 .thumb svg { width: 44%; height: auto; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .body { padding: 20px 22px 22px; display: grid; gap: 10px; align-content: start; flex: 1; }
 .kind { font-family: var(--mono); font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
 .body h3 { font-weight: 500; font-size: 1.35rem; line-height: 1.2; }
@@ -129,9 +130,8 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
       <h2 id="do-h">What I do</h2>
     </div>
     <div class="services">
-      <div class="service"><h3>Websites &amp; landing pages</h3><p>Simple full sites, one-page portfolios, and landing pages built to get sign-ups, bookings, or sales.</p></div>
+      <div class="service"><h3>Websites</h3><p>Simple full sites, one-page portfolios, or landing pages.</p></div>
       <div class="service"><h3>Website audits</h3><p>A clear review of what's happening on your website with actionable next steps.</p></div>
-      <div class="service"><h3>Marketing &amp; CTAs</h3><p>Sharper headlines, buttons, and page flow so more visitors take the next step.</p></div>
       <div class="service"><h3>Automation tools</h3><p>Scripts and workflows that replace the copy-paste work in spreadsheets and reports.</p></div>
       <div class="service"><h3>Data analysis</h3><p>Dashboards and analyses that answer a real business questions.</p></div>
       <div class="service"><h3>Digital revamps</h3><p>Taking an old site, tool or process and rebuilding it to be cleaner and easier to use.</p></div>
@@ -173,6 +173,7 @@ const CONTACT_EMAIL = "websitesbyphoenix@gmail.com";
 const PROJECTS = [
   {
     title: "Calm Games",
+    image: "calm-games.png",
     category: "Websites",
     kind: "Web app",
     blurb: "Gentle, ad-free, low-stimulation games for people recovering from brain injuries, dealing with anixety, or if you just want to take a few moments. About 15 simple games, a breathing exercise, and a simple resources page.",
@@ -183,6 +184,7 @@ const PROJECTS = [
   },
   {
     title: "Claytime",
+    image: "claytime.png",
     category: "Websites",
     kind: "Web app",
     blurb: "A Strava-style stat card for POTTERY sessions. Enter what you made and how long you worked, and get a card ready to share to Instagram Stories and other social media platforms.",
@@ -209,6 +211,9 @@ const PROJECTS = [
   },
   {
     title: "Remind Me",
+    image: "remindme.png",
+    link: "remind-me.pdf",
+    linkText: "See how it works",
     category: "Fun",
     kind: "Chrome extension",
     blurb: "A Chrome extension that makes reminders nicer to get. A small dog or cat walks onto your screen carrying your reminder note at your set time.",
@@ -248,7 +253,7 @@ function renderGrid() {
   document.getElementById("grid").innerHTML = list.map(p => `
     <article class="card">
       <div class="thumb" style="background: var(--t${p.tint || 1})">
-        <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[p.art] || ART.spark}</svg>
+        ${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">` : `<svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[p.art] || ART.spark}</svg>`}
       </div>
       <div class="body">
         <span class="kind">${esc(p.kind || p.category)}</span>
