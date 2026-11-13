@@ -92,6 +92,7 @@ section { display: grid; gap: 24px; }
 .tags span { font-family: var(--mono); font-size: .72rem; padding: 3px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
 .link { margin-top: 4px; color: var(--accent); font-weight: 600; text-decoration: none; justify-self: start; }
 .link:hover { text-decoration: underline; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 
 /* Contact */
 .contact { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 32px; display: grid; gap: 12px; }
@@ -213,6 +214,8 @@ const PROJECTS = [
     title: "Remind Me",
     link: "remind-me.pdf",
     linkText: "See how it works",
+    link2: "https://chromewebstore.google.com/detail/your-extension-id",
+    linkText2: "Add to Chrome",
     category: "Fun",
     kind: "Chrome extension",
     blurb: "A Chrome extension that makes reminders nicer to get. A small dog or cat walks onto your screen carrying your reminder note at your set time.",
@@ -259,7 +262,7 @@ function renderGrid() {
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.blurb)}</p>
         <div class="tags">${(p.tags || []).map(t => `<span>${esc(t)}</span>`).join("")}</div>
-        ${p.link ? `<a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkText || "View")} →</a>` : ""}
+        ${p.link || p.link2 ? `<div class="links">${p.link ? `<a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkText || "View")} →</a>` : ""}${p.link2 ? `<a class="link" href="${esc(p.link2)}" target="_blank" rel="noopener">${esc(p.linkText2 || "View")} →</a>` : ""}</div>` : ""}
       </div>
     </article>`).join("");
 }
