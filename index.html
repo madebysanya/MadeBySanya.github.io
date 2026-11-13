@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sanya's Projects</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Sanya builds websites, audits them, writes better CTAs, builds automation tools, analyses data and revamps digital projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column. Intro, what I do (6 short blocks), filterable project grid, contact. */
+:root {
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --fg: #1c211f;
+  --muted: #5f6a65;
+  --line: #e1e5e2;
+  --accent: #1f6b5c;
+  --accent-fg: #ffffff;
+  --t1: #e4efe9; --t2: #f3e9dc; --t3: #e6e9f3; --t4: #efe6ef; --t5: #e3eef2;
+  --ink: #27413a;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131715; --surface: #1b201e; --fg: #e9eeeb; --muted: #9aa6a0; --line: #2a312e;
+    --accent: #6cc4ad; --accent-fg: #0f1a17;
+    --t1: #1f2d28; --t2: #2d271f; --t3: #222634; --t4: #2c2230; --t5: #1d2a2f; --ink: #cfe3dc;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131715; --surface: #1b201e; --fg: #e9eeeb; --muted: #9aa6a0; --line: #2a312e;
+  --accent: #6cc4ad; --accent-fg: #0f1a17;
+  --t1: #1f2d28; --t2: #2d271f; --t3: #222634; --t4: #2c2230; --t5: #1d2a2f; --ink: #cfe3dc;
+  color-scheme: dark;
+}
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap {
+  max-width: 920px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 72px 48px;
+  display: grid; gap: 72px;
+}
+.eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+
+/* Intro */
+header { display: grid; gap: 16px; max-width: 62ch; }
+h1 { font-weight: 700; font-size: clamp(2.2rem, 6vw, 3.3rem); line-height: 1.05; letter-spacing: -0.02em; }
+header p { margin: 0; color: var(--muted); font-size: 1.12rem; }
+.jump { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-fg); }
+.btn.ghost { color: var(--accent); }
+
+section { display: grid; gap: 24px; }
+.section-head { display: grid; gap: 6px; }
+.section-head h2 { font-weight: 700; font-size: 1.7rem; letter-spacing: -0.01em; }
+.section-head p { margin: 0; color: var(--muted); }
+
+/* What I do */
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
+.service { display: grid; gap: 4px; align-content: start; border-top: 1px solid var(--line); padding-top: 14px; }
+.service h3 { font-weight: 500; font-size: 1.12rem; }
+.service p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* Work */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 500 .9rem var(--body); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.chip span { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-left: 4px; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.chip[aria-pressed="true"] span { color: var(--accent-fg); opacity: .8; }
+.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; transition: transform .2s ease, border-color .2s ease; }
+.card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.thumb { aspect-ratio: 16 / 9; max-width: 100%; display: grid; place-items: center; color: var(--ink); }
+.thumb svg { width: 44%; height: auto; }
+.body { padding: 20px 22px 22px; display: grid; gap: 10px; align-content: start; flex: 1; }
+.kind { font-family: var(--mono); font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.body h3 { font-weight: 500; font-size: 1.35rem; line-height: 1.2; }
+.body p { margin: 0; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.tags span { font-family: var(--mono); font-size: .72rem; padding: 3px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.link { margin-top: 4px; color: var(--accent); font-weight: 600; text-decoration: none; justify-self: start; }
+.link:hover { text-decoration: underline; }
+
+/* Contact */
+.contact { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 32px; display: grid; gap: 12px; }
+.contact h2 { font-weight: 700; font-size: 1.7rem; }
+.contact p { margin: 0; color: var(--muted); max-width: 56ch; }
+.email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 6px; }
+.email { font-family: var(--mono); font-size: 1rem; user-select: all; }
+.copy { font: 600 .85rem var(--body); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 720px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .wrap { padding-block: 48px 32px; gap: 56px; }
+  .services, .grid { grid-template-columns: 1fr; }
+  .contact { padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header>
+    <span class="eyebrow">Sanya · Mumbai</span>
+    <h1>I build, audit and fix the digital side of things.</h1>
+    <p>Websites, automation, data and the small details that make people click. I take projects from idea to working tool, and I help existing ones work better. Below is everything I've made, big and small.</p>
+    <div class="jump">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </header>
+
+  <section aria-labelledby="do-h">
+    <div class="section-head">
+      <h2 id="do-h">What I do</h2>
+    </div>
+    <div class="services">
+      <div class="service"><h3>Websites</h3><p>Simple, fast sites and web apps, from a one-page portfolio to a product with sign-ups.</p></div>
+      <div class="service"><h3>Website audits</h3><p>A clear review of what's slowing your site down, confusing visitors or losing leads.</p></div>
+      <div class="service"><h3>Marketing &amp; CTAs</h3><p>Sharper headlines, buttons and page flow so more visitors take the next step.</p></div>
+      <div class="service"><h3>Automation tools</h3><p>Scripts and workflows that replace the copy-paste work in sheets, inboxes and reports.</p></div>
+      <div class="service"><h3>Data analysis</h3><p>Dashboards and analyses that answer a real business question, in Tableau, SQL or Python.</p></div>
+      <div class="service"><h3>Digital revamps</h3><p>Taking an old site, tool or process and rebuilding it to be cleaner and easier to use.</p></div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="section-head">
+      <h2 id="work-h">Work</h2>
+      <p>A living directory. Client work, tools, and a few fun little things.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Have something in mind?</h2>
+    <p>A site that needs building or fixing, a process you're tired of doing by hand, or data you want to make sense of. Tell me about it.</p>
+    <div class="email-row" id="email-row" hidden>
+      <span class="email" id="email"></span>
+      <button class="copy" id="copy" type="button">Copy</button>
+    </div>
+  </section>
+
+  <footer>Sanya · Mumbai</footer>
+</main>
+
+<script>
+/* ===== Edit here =====
+   CONTACT_EMAIL: your email. Leave "" to hide the email line.
+   PROJECTS: add a new object to the list to add a project. Newest first.
+   category: one of "Websites", "Automation", "Data", "Fun"
+   art: one of "card", "pet", "sheets", "chart", "calm", "spark"
+   tint: 1–5 (thumbnail background colour)
+*/
+const CONTACT_EMAIL = "websitesbyphoenix@gmail.com";
+
+const PROJECTS = [
+  {
+    title: "Calm Games",
+    category: "Websites",
+    kind: "Web app",
+    blurb: "Gentle, ad-free, low-stimulation games for people dealing with anxiety or recovering from a brain injury. About 15 simple games, a breathing exercise and a resources page, with a low-cost subscription and a sliding-scale option.",
+    tags: ["Web app", "Subscriptions", "Accessibility"],
+    link: "https://calm-recovery-games.netlify.app/",
+    linkText: "Visit site",
+    art: "calm", tint: 5
+  },
+  {
+    title: "Claytime",
+    category: "Fun",
+    kind: "Web app",
+    blurb: "A Strava-style stat card for pottery sessions. Enter what you made and how long you worked, and get a card ready to share to Instagram Stories.",
+    tags: ["Web app", "Design"],
+    link: "https://claytime.art",
+    linkText: "claytime.art",
+    art: "card", tint: 2
+  },
+  {
+    title: "Weekly Order Automation",
+    category: "Automation",
+    kind: "Client work",
+    blurb: "A Google Apps Script for a retail client that builds weekly orders across several stores and suppliers, replacing a manual spreadsheet routine.",
+    tags: ["Apps Script", "Google Sheets", "Freelance"],
+    art: "sheets", tint: 3
+  },
+  {
+    title: "Portfolio Tracker",
+    category: "Data",
+    kind: "Personal tool",
+    blurb: "My own investment tracker for US and Indian holdings, built step by step in Google Sheets so every number is visible and easy to check.",
+    tags: ["Google Sheets", "GOOGLEFINANCE"],
+    art: "chart", tint: 4
+  },
+  {
+    title: "Remind Me",
+    category: "Fun",
+    kind: "Chrome extension",
+    blurb: "A Chrome extension that makes reminders nicer to get. A small dog or cat walks onto your screen carrying the note.",
+    tags: ["Chrome extension", "JavaScript"],
+    art: "pet", tint: 1
+  }
+];
+
+const ART = {
+  card: '<rect x="34" y="4" width="52" height="72" rx="8"/><path d="M46 22h28M46 34h18"/><path d="M46 58c4-10 10-14 14-14s10 4 14 14"/>',
+  pet: '<rect x="62" y="6" width="50" height="24" rx="8"/><path d="M72 30l-6 8"/><path d="M72 18h30"/><path d="M14 62c0-10 8-16 20-16h14c6 0 10-4 12-10l4 2c2 6-2 14-8 16v8"/><path d="M20 62v12M30 62v12M48 62v12"/>',
+  sheets: '<rect x="8" y="10" width="40" height="60" rx="6"/><path d="M8 30h40M8 50h40M28 10v60"/><path d="M56 40h22M70 32l8 8-8 8"/><rect x="86" y="18" width="26" height="44" rx="6"/><path d="M93 32h12M93 42h12M93 52h8"/>',
+  chart: '<path d="M10 70h100"/><path d="M14 58l20-14 18 8 22-22 18 6 16-18"/><circle cx="108" cy="18" r="4" fill="currentColor"/>',
+  calm: '<circle cx="60" cy="40" r="10"/><circle cx="60" cy="40" r="22" opacity=".6"/><circle cx="60" cy="40" r="34" opacity=".3"/>',
+  spark: '<path d="M60 10v20M60 50v20M30 40h20M70 40h20M40 20l10 10M70 50l10 10M80 20L70 30M50 50L40 60"/>'
+};
+
+const CATS = ["All", "Websites", "Automation", "Data", "Fun"];
+const CAT_LABEL = { All: "All", Websites: "Websites", Automation: "Automation", Data: "Data", Fun: "Fun little things" };
+let active = "All";
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function renderFilters() {
+  const el = document.getElementById("filters");
+  el.innerHTML = CATS
+    .map(c => {
+      const n = c === "All" ? PROJECTS.length : PROJECTS.filter(p => p.category === c).length;
+      if (!n) return "";
+      return `<button class="chip" type="button" data-cat="${c}" aria-pressed="${c === active}">${CAT_LABEL[c]}<span>${n}</span></button>`;
+    }).join("");
+  el.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => { active = b.dataset.cat; renderFilters(); renderGrid(); }));
+}
+
+function renderGrid() {
+  const list = active === "All" ? PROJECTS : PROJECTS.filter(p => p.category === active);
+  document.getElementById("grid").innerHTML = list.map(p => `
+    <article class="card">
+      <div class="thumb" style="background: var(--t${p.tint || 1})">
+        <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[p.art] || ART.spark}</svg>
+      </div>
+      <div class="body">
+        <span class="kind">${esc(p.kind || p.category)}</span>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.blurb)}</p>
+        <div class="tags">${(p.tags || []).map(t => `<span>${esc(t)}</span>`).join("")}</div>
+        ${p.link ? `<a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkText || "View")} →</a>` : ""}
+      </div>
+    </article>`).join("");
+}
+
+if (CONTACT_EMAIL) {
+  document.getElementById("email").textContent = CONTACT_EMAIL;
+  document.getElementById("email-row").hidden = false;
+  const btn = document.getElementById("copy");
+  btn.addEventListener("click", () => {
+    const done = () => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy", 1500); };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(CONTACT_EMAIL).then(done).catch(() => window.getSelection().selectAllChildren(document.getElementById("email")));
+    } else {
+      window.getSelection().selectAllChildren(document.getElementById("email"));
+    }
+  });
+}
+
+renderFilters();
+renderGrid();
+</script>
+</body>
+</html>
